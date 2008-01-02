@@ -17,6 +17,7 @@ License: GPL
 Group: System/Libraries
 URL: http://scigraphica.sourceforge.net/
 Source: http://prdownloads.sourceforge.net/scigraphica/%{name}-%{version}.tar.bz2
+BuildRoot: %{_tmppath}/%{name}-buildroot
 
 BuildRequires: perl-XML-Parser
 BuildRequires: zlib-devel
