@@ -1,6 +1,6 @@
 %define	name	libscigraphica
 %define	version	2.1.1
-%define	release	%mkrel 7
+%define	release	%mkrel 9
 
 %define realname scigraphica
 
