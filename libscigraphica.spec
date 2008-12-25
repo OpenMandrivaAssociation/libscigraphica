@@ -1,12 +1,12 @@
 %define	name	libscigraphica
 %define	version	2.1.1
-%define	release	%mkrel 9
+%define	release	%mkrel 10
 
 %define realname scigraphica
 
 %define major 2.1
 %define libname %mklibname %{realname} %major
-%define libnamedev %mklibname %{realname} %major -d
+%define libnamedev %mklibname %{realname} -d
 
 
 Summary: Data analysis and technical graphics library
@@ -39,7 +39,6 @@ open-source, released under the GPL license.
 %package -n %{libname}
 Summary: Library for scigraphica 
 Group: Development/Other
-Provides: lib%{name} = %{version}
 
 %description -n %{libname}
 SciGraphica is a scientific application for data analysis and technical
@@ -53,9 +52,10 @@ open-source, released under the GPL license.
 Summary: Libscigraphica library headers and development libraries
 Group: Development/Other
 Requires: %{libname} = %{version}
-Provides: lib%{name}-devel = %{version}
+Provides: %{name}-devel = %{version}
 Provides: libscigraphica-devel
 Provides: libscigraphica2-devel
+Obsoletes: %{_lib}scigraphica2.1-devel
 
 %description -n %{libnamedev}
 Libscigraphica devel files
