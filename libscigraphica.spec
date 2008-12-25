@@ -13,10 +13,12 @@ Summary: Data analysis and technical graphics library
 Name: %{name}
 Version: %{version}
 Release: %{release}
-License: GPL
+License: GPLv2+
 Group: System/Libraries
 URL: http://scigraphica.sourceforge.net/
 Source: http://prdownloads.sourceforge.net/scigraphica/%{name}-%{version}.tar.bz2
+Patch0: libscigraphica-2.1.1-fix-linkage.patch
+Patch1: libscigraphica-2.1.1-fix-str-fmt.patch
 BuildRoot: %{_tmppath}/%{name}-buildroot
 
 BuildRequires: perl-XML-Parser
@@ -60,19 +62,17 @@ Libscigraphica devel files
 
 
 %prep
-rm -rf $RPM_BUILD_ROOT
-
-%setup -q 
+%setup -q
+%patch0 -p0
+%patch1 -p0 
 
 %build
-  
-%configure --with-python-numeric-path=/usr/include/python2.5/Numeric/
-
+%configure2_5x
 %make
 
 %install
-
-make DESTDIR=$RPM_BUILD_ROOT install
+rm -fr %buildroot
+%makeinstall_std
 
 %find_lang %name
 
