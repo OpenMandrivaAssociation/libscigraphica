@@ -19,6 +19,7 @@ URL: http://scigraphica.sourceforge.net/
 Source: http://prdownloads.sourceforge.net/scigraphica/%{name}-%{version}.tar.bz2
 Patch0: libscigraphica-2.1.1-fix-linkage.patch
 Patch1: libscigraphica-2.1.1-fix-str-fmt.patch
+Patch2: libscigraphica-2.1.1-fix-build.patch
 BuildRoot: %{_tmppath}/%{name}-buildroot
 
 BuildRequires: perl-XML-Parser
@@ -65,9 +66,10 @@ Libscigraphica devel files
 %setup -q
 %patch0 -p0
 %patch1 -p0 
+%patch2 -p0
 
 %build
-%configure2_5x
+%configure2_5x --with-python-numeric-path=%{py_platsitedir}/numpy
 %make
 
 %install
