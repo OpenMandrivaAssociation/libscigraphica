@@ -26,7 +26,7 @@ BuildRequires: perl-XML-Parser
 BuildRequires: zlib-devel
 BuildRequires: pkgconfig
 BuildRequires: gtk+extra-2-devel
-BuildRequires: python-numeric-devel
+BuildRequires: python-numpy-devel
 
 %description
 SciGraphica is a scientific application for data analysis and technical
