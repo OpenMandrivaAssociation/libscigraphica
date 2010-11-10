@@ -27,6 +27,7 @@ BuildRequires: zlib-devel
 BuildRequires: pkgconfig
 BuildRequires: gtk+extra-2-devel
 BuildRequires: python-numpy-devel
+BuildRequires: python-devel
 
 %description
 SciGraphica is a scientific application for data analysis and technical
