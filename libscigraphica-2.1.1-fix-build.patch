@@ -1,0 +1,36 @@
+--- scigraphica/Makefile.am.build	2010-11-09 07:55:24.000000000 +0100
++++ scigraphica/Makefile.am	2010-11-09 07:55:55.000000000 +0100
+@@ -93,10 +93,10 @@
+         $(LIBART_LIBS)
+ 
+ files:
+-        @files=`ls $(DISTFILES) 2> /dev/null `; for p in $$files; do \
++	@files=`ls $(DISTFILES) 2> /dev/null `; for p in $$files; do \
+           echo $$p; \
+         done
+-        @for subdir in $(SUBDIRS); do \
++	@for subdir in $(SUBDIRS); do \
+           files=`cd $$subdir; $(MAKE) files | grep -v "make\[[1-9]\]"`; \
+           for file in $$files; do \
+             echo $$subdir/$$file; \
+--- scigraphica/Makefile.in.build	2010-11-09 07:56:02.000000000 +0100
++++ scigraphica/Makefile.in	2010-11-09 07:57:09.000000000 +0100
+@@ -804,7 +804,7 @@
+ 
+ 
+ files:
+-        @for subdir in $(SUBDIRS); do \
++	@for subdir in $(SUBDIRS); do \
+           files=`cd $$subdir; $(MAKE) files | grep -v "make\[[1-9]\]"`; \
+           for file in $$files; do \
+             echo $$subdir/$$file; \
+--- scigraphica/sg_python_worksheet.c.build	2010-11-09 08:19:46.000000000 +0100
++++ scigraphica/sg_python_worksheet.c	2010-11-09 08:20:07.000000000 +0100
+@@ -33,6 +33,7 @@
+ #include "sg.h"
+ #include "sg_python.h"
+ #include "sg_python_worksheet.h"
++#define PyArray_SBYTE PyArray_BYTE
+ 
+ extern PyObject *main_dict, *sg_dict;
+ 

@@ -1,0 +1,217 @@
+--- scigraphica/Makefile.am~	2005-06-24 03:40:58.000000000 +0200
++++ scigraphica/Makefile.am	2008-12-25 13:24:58.000000000 +0100
+@@ -82,15 +82,15 @@
+ libscigraphica_2_0_la_LDFLAGS = \
+ 	-version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) \
+ 	-release $(LT_RELEASE) \
+-	-export-dynamic \
+-	$(GTK_LIBS) $(GTK_EXTRA_LIBS) $(XML_LIBS) \
+-	-L$(PY_LIB_LOC)/config -l$(PY_LIBS) $(PY_EXTRA_LIBS) \
+-        $(LIBART_LIBS) 
++	-export-dynamic
+ 
+-libscigraphica_2_0_la_LIBADD = \
++libscigraphica_2_0_la_LIBADD = -lm \
+ 	algorithms/libsgalgorithms.la \
+ 	widgets/libsgwidgets.la \
+-	dialogs/libsgdialogs.la 
++	dialogs/libsgdialogs.la \
++        $(GTK_LIBS) $(GTK_EXTRA_LIBS) $(XML_LIBS) \
++        -L$(PY_LIB_LOC)/config -l$(PY_LIBS) $(PY_EXTRA_LIBS) \
++        $(LIBART_LIBS)
+ 
+ files:
+         @files=`ls $(DISTFILES) 2> /dev/null `; for p in $$files; do \
+--- scigraphica/Makefile.in~	2005-06-25 03:38:51.000000000 +0200
++++ scigraphica/Makefile.in	2008-12-25 13:32:36.000000000 +0100
+@@ -279,16 +279,16 @@
+ libscigraphica_2_0_la_LDFLAGS = \
+ 	-version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) \
+ 	-release $(LT_RELEASE) \
+-	-export-dynamic \
+-	$(GTK_LIBS) $(GTK_EXTRA_LIBS) $(XML_LIBS) \
+-	-L$(PY_LIB_LOC)/config -l$(PY_LIBS) $(PY_EXTRA_LIBS) \
+-        $(LIBART_LIBS) 
++	-export-dynamic
+ 
+ 
+-libscigraphica_2_0_la_LIBADD = \
++libscigraphica_2_0_la_LIBADD = -lm \
+ 	algorithms/libsgalgorithms.la \
+ 	widgets/libsgwidgets.la \
+-	dialogs/libsgdialogs.la 
++	dialogs/libsgdialogs.la \
++        $(GTK_LIBS) $(GTK_EXTRA_LIBS) $(XML_LIBS) \
++        -L$(PY_LIB_LOC)/config -l$(PY_LIBS) $(PY_EXTRA_LIBS) \
++        $(LIBART_LIBS)
+ 
+ @files = `ls $(DISTFILES) 2> /dev/null `; for p in $$files; do \
+           echo $$p; \
+--- plugins/arrays/Makefile.am.link	2010-11-09 08:29:30.000000000 +0100
++++ plugins/arrays/Makefile.am	2010-11-09 08:32:19.000000000 +0100
+@@ -8,6 +8,7 @@
+ xmldir = $(scigraphica_plugin_arraysdir)
+ scigraphica_plugin_arrays_LTLIBRARIES = arrays.la
+ arrays_la_LDFLAGS = -module -avoid-version
++arrays_la_LIBADD = $(GTK_LIBS) $(top_builddir)/scigraphica/libscigraphica-2.0.la
+ arrays_la_SOURCES = \
+ 	sg_array_edit.c \
+ 	sg_array_file.c 
+--- plugins/arrays/Makefile.in.link	2010-11-09 08:32:28.000000000 +0100
++++ plugins/arrays/Makefile.in	2010-11-09 08:32:42.000000000 +0100
+@@ -223,7 +223,7 @@
+ CONFIG_CLEAN_FILES =
+ LTLIBRARIES = $(scigraphica_plugin_arrays_LTLIBRARIES)
+ 
+-arrays_la_LIBADD =
++arrays_la_LIBADD = $(GTK_LIBS) $(top_builddir)/scigraphica/libscigraphica-2.0.la
+ am_arrays_la_OBJECTS = sg_array_edit.lo sg_array_file.lo
+ arrays_la_OBJECTS = $(am_arrays_la_OBJECTS)
+ 
+--- plugins/functions/Makefile.am.link	2010-11-09 08:42:29.000000000 +0100
++++ plugins/functions/Makefile.am	2010-11-09 08:43:53.000000000 +0100
+@@ -8,6 +8,7 @@
+ xmldir = $(scigraphica_plugin_functionsdir)
+ scigraphica_plugin_functions_LTLIBRARIES = functions.la
+ functions_la_LDFLAGS = -module -avoid-version
++functions_la_LIBADD = $(GTK_LIBS) $(top_builddir)/scigraphica/$(scigraphicatargetlib)
+ functions_la_SOURCES = functions.c 
+ 
+ xml_in_files = plugin.xml.in
+--- plugins/functions/Makefile.in.link	2010-11-09 08:43:57.000000000 +0100
++++ plugins/functions/Makefile.in	2010-11-09 08:44:29.000000000 +0100
+@@ -220,7 +220,7 @@
+ CONFIG_CLEAN_FILES =
+ LTLIBRARIES = $(scigraphica_plugin_functions_LTLIBRARIES)
+ 
+-functions_la_LIBADD =
++functions_la_LIBADD = $(GTK_LIBS) $(top_builddir)/scigraphica/$(scigraphicatargetlib)
+ am_functions_la_OBJECTS = functions.lo
+ functions_la_OBJECTS = $(am_functions_la_OBJECTS)
+ 
+--- plugins/io/Makefile.am.link	2010-11-09 08:44:39.000000000 +0100
++++ plugins/io/Makefile.am	2010-11-09 08:44:57.000000000 +0100
+@@ -8,6 +8,7 @@
+ xmldir = $(scigraphica_plugin_iodir)
+ scigraphica_plugin_io_LTLIBRARIES = io.la
+ io_la_LDFLAGS = -module -avoid-version
++io_la_LIBADD = $(GTK_LIBS) $(top_builddir)/scigraphica/$(scigraphicatargetlib)
+ io_la_SOURCES = \
+ 	import_data.c \
+ 	sg_array_file_import.c \
+--- plugins/io/Makefile.in.link	2010-11-09 08:45:03.000000000 +0100
++++ plugins/io/Makefile.in	2010-11-09 08:45:18.000000000 +0100
+@@ -254,7 +254,7 @@
+ CONFIG_CLEAN_FILES =
+ LTLIBRARIES = $(scigraphica_plugin_io_LTLIBRARIES)
+ 
+-io_la_LIBADD =
++io_la_LIBADD = $(GTK_LIBS) $(top_builddir)/scigraphica/$(scigraphicatargetlib)
+ am_io_la_OBJECTS = import_data.lo sg_array_file_import.lo \
+ 	sg_array_import_dialog.lo sg_dataset_file_import.lo \
+ 	sg_dataset_file_reader.lo sg_dataset_file_xml.lo \
+--- plugins/iterators/Makefile.am.link	2010-11-09 08:45:27.000000000 +0100
++++ plugins/iterators/Makefile.am	2010-11-09 08:45:50.000000000 +0100
+@@ -8,6 +8,7 @@
+ xmldir = $(scigraphica_plugin_iteratorsdir)
+ scigraphica_plugin_iterators_LTLIBRARIES = iterators.la
+ iterators_la_LDFLAGS = -module -avoid-version
++iterators_la_LIBADD = $(GTK_LIBS) $(top_builddir)/scigraphica/$(scigraphicatargetlib)
+ iterators_la_SOURCES = \
+ 	sg_dataset_function.c \
+ 	sg_dataset_matrix.c \
+--- plugins/iterators/Makefile.in.link	2010-11-09 08:45:56.000000000 +0100
++++ plugins/iterators/Makefile.in	2010-11-09 08:46:03.000000000 +0100
+@@ -233,7 +233,7 @@
+ CONFIG_CLEAN_FILES =
+ LTLIBRARIES = $(scigraphica_plugin_iterators_LTLIBRARIES)
+ 
+-iterators_la_LIBADD =
++iterators_la_LIBADD = $(GTK_LIBS) $(top_builddir)/scigraphica/$(scigraphicatargetlib)
+ am_iterators_la_OBJECTS = sg_dataset_function.lo sg_dataset_matrix.lo \
+ 	sg_dataset_python.lo sg_dataset_worksheet.lo \
+ 	sg_iterator_default.lo sg_iterator_file_dialog.lo \
+--- plugins/layers/Makefile.am.link	2010-11-09 08:46:11.000000000 +0100
++++ plugins/layers/Makefile.am	2010-11-09 08:46:25.000000000 +0100
+@@ -8,6 +8,7 @@
+ xmldir = $(scigraphica_plugin_layersdir)
+ scigraphica_plugin_layers_LTLIBRARIES = layers.la
+ layers_la_LDFLAGS = -module -avoid-version
++layers_la_LIBADD = $(GTK_LIBS) $(top_builddir)/scigraphica/$(scigraphicatargetlib)
+ layers_la_SOURCES = \
+ 	sg_layer_2d.c \
+ 	sg_layer_3d.c \
+--- plugins/layers/Makefile.in.link	2010-11-09 08:46:30.000000000 +0100
++++ plugins/layers/Makefile.in	2010-11-09 08:46:44.000000000 +0100
+@@ -224,7 +224,7 @@
+ CONFIG_CLEAN_FILES =
+ LTLIBRARIES = $(scigraphica_plugin_layers_LTLIBRARIES)
+ 
+-layers_la_LIBADD =
++layers_la_LIBADD = $(GTK_LIBS) $(top_builddir)/scigraphica/$(scigraphicatargetlib)
+ am_layers_la_OBJECTS = sg_layer_2d.lo sg_layer_3d.lo sg_layer_polar.lo
+ layers_la_OBJECTS = $(am_layers_la_OBJECTS)
+ 
+--- plugins/menus/Makefile.am.link	2010-11-09 08:47:03.000000000 +0100
++++ plugins/menus/Makefile.am	2010-11-09 08:47:15.000000000 +0100
+@@ -8,6 +8,7 @@
+ xmldir = $(scigraphica_plugin_menusdir)
+ scigraphica_plugin_menus_LTLIBRARIES = menus.la
+ menus_la_LDFLAGS = -module -avoid-version
++menus_la_LIBADD = $(GTK_LIBS) $(top_builddir)/scigraphica/$(scigraphicatargetlib)
+ menus_la_SOURCES = \
+ 	sg_matrix_menu.c \
+ 	sg_plot_menu.c \
+--- plugins/menus/Makefile.in.link	2010-11-09 08:47:21.000000000 +0100
++++ plugins/menus/Makefile.in	2010-11-09 08:47:31.000000000 +0100
+@@ -224,7 +224,7 @@
+ CONFIG_CLEAN_FILES =
+ LTLIBRARIES = $(scigraphica_plugin_menus_LTLIBRARIES)
+ 
+-menus_la_LIBADD =
++menus_la_LIBADD = $(GTK_LIBS) $(top_builddir)/scigraphica/$(scigraphicatargetlib)
+ am_menus_la_OBJECTS = sg_matrix_menu.lo sg_plot_menu.lo \
+ 	sg_worksheet_menu.lo
+ menus_la_OBJECTS = $(am_menus_la_OBJECTS)
+--- plugins/styles/Makefile.am.link	2010-11-09 08:47:38.000000000 +0100
++++ plugins/styles/Makefile.am	2010-11-09 08:48:05.000000000 +0100
+@@ -8,6 +8,7 @@
+ xmldir = $(scigraphica_plugin_stylesdir)
+ scigraphica_plugin_styles_LTLIBRARIES = styles.la
+ styles_la_LDFLAGS = -module -avoid-version
++styles_la_LIBADD = $(GTK_LIBS) $(top_builddir)/scigraphica/$(scigraphicatargetlib)
+ styles_la_SOURCES = \
+ 	sg_style_bubbles_2d.c \
+ 	sg_style_bubbles_3d.c \
+--- plugins/styles/Makefile.in.link	2010-11-09 08:48:12.000000000 +0100
++++ plugins/styles/Makefile.in	2010-11-09 08:48:25.000000000 +0100
+@@ -246,7 +246,7 @@
+ CONFIG_CLEAN_FILES =
+ LTLIBRARIES = $(scigraphica_plugin_styles_LTLIBRARIES)
+ 
+-styles_la_LIBADD =
++styles_la_LIBADD = $(GTK_LIBS) $(top_builddir)/scigraphica/$(scigraphicatargetlib)
+ am_styles_la_OBJECTS = sg_style_bubbles_2d.lo sg_style_bubbles_3d.lo \
+ 	sg_style_bubbles_polar.lo sg_style_color_2d.lo \
+ 	sg_style_color_3d.lo sg_style_color_polar.lo \
+--- plugins/toolbars/Makefile.am.link	2010-11-09 08:48:32.000000000 +0100
++++ plugins/toolbars/Makefile.am	2010-11-09 08:48:56.000000000 +0100
+@@ -8,6 +8,7 @@
+ xmldir = $(scigraphica_plugin_toolbarsdir)
+ scigraphica_plugin_toolbars_LTLIBRARIES = toolbars.la
+ toolbars_la_LDFLAGS = -module -avoid-version
++toolbars_la_LIBADD = $(GTK_LIBS) $(top_builddir)/scigraphica/$(scigraphicatargetlib)
+ toolbars_la_SOURCES = \
+ 	sg_matrix_toolbar.c \
+ 	sg_plot_toolbar.c \
+--- plugins/toolbars/Makefile.in.link	2010-11-09 08:49:02.000000000 +0100
++++ plugins/toolbars/Makefile.in	2010-11-09 08:49:11.000000000 +0100
+@@ -224,7 +224,7 @@
+ CONFIG_CLEAN_FILES =
+ LTLIBRARIES = $(scigraphica_plugin_toolbars_LTLIBRARIES)
+ 
+-toolbars_la_LIBADD =
++toolbars_la_LIBADD = $(GTK_LIBS) $(top_builddir)/scigraphica/$(scigraphicatargetlib)
+ am_toolbars_la_OBJECTS = sg_matrix_toolbar.lo sg_plot_toolbar.lo \
+ 	sg_worksheet_toolbar.lo
+ toolbars_la_OBJECTS = $(am_toolbars_la_OBJECTS)
