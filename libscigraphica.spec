@@ -15,7 +15,7 @@ Version: %{version}
 Release: %{release}
 License: GPLv2+
 Group: System/Libraries
-URL: http://scigraphica.sourceforge.net/
+URL: https://scigraphica.sourceforge.net/
 Source: http://prdownloads.sourceforge.net/scigraphica/%{name}-%{version}.tar.bz2
 Patch0: libscigraphica-2.1.1-fix-linkage.patch
 Patch1: libscigraphica-2.1.1-fix-str-fmt.patch
